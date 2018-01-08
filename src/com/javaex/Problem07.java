@@ -1,35 +1,47 @@
 package com.javaex;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Problem07 {
+
 	public static void main(String[] args) {
+
 		Scanner sc = new Scanner(System.in);
 		System.out.println("=================================");
 		System.out.println("          [숫자맞추기게임] ");
 		System.out.println("=================================");
-		
-		int i = 108;
-		while(true) {
-			System.out.print(" >> ");
-			int num = sc.nextInt();
-			if(i > num) {
-				System.out.println("더 높게");
-
-			}else if(i < num) {
-				System.out.println("더 낮게");
-				System.out.print(" >> ");
-				num = sc.nextInt();
-			}else {
-				System.out.print("맞았습니다.\n게임을 종료하시겠습니까?(Y/N) >> ");
-				String ac = sc.nextLine();
-				if(ac.equals("Y")) {
-					System.exit(0);
-				}else {
+		int get = 0;
+		game: while (true) {
+			System.out.println("1에서 100사이 랜덤값으로 초기화 되었습니다.");
+			System.out.println("숫자를 맞춰주세요.");
+			int random = (int) (Math.random() * 100 + 1);
+			while (true) {
+				try {
+					get = sc.nextInt();
+					sc.nextLine();
+					if (random < get) {
+						System.out.println("더 낮게 >> ");
+					} else if (random > get) {
+						System.out.println("더 높게 >> ");
+					} else if (random == get) {
+						System.out.println("정답 입니다.");
+						System.out.println("게임을 계속 하시겠습니까? y/n");
+						String exit = sc.nextLine();
+						if (exit.equals("y")) {
+							break game;
+						} else {
+							break;
+						}
+					}
+				} catch (InputMismatchException e) {
+					System.out.println("숫자만 입력해주세요");
 					continue;
 				}
 			}
-		break;
 		}
+
+		System.out.println("게임을 종료합니다.");
+
 	}
 }
